@@ -1,0 +1,17 @@
+@import '../../../../style/mixin';
+.home-img {
+    height: calc(100vh - 75vh);
+    width: calc(100vw - 2rem);
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    // overflow: auto;
+    img {
+        height: calc(100vh - 75vh);
+        width: calc(100vw - .08rem);
+       }
+    .van-img {
+        height: calc(100vh  - 75vh);
+        width: calc(100vw - .08rem);
+     }
+}
