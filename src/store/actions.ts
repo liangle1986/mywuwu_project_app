@@ -1,5 +1,5 @@
 import { ActionTree } from 'vuex';
-
+import {Toast } from 'vant';
 import { login, getToken } from '@/api/user';
 import { sync } from '@/api/sync';
 
@@ -9,8 +9,7 @@ const actions: ActionTree<any, any> = {
     const res: Ajax.AjaxResponse = await login(data)
       // tslint:disable-next-line:no-shadowed-variable
       .then((res) => res.data)
-      // tslint:disable-next-line:no-console
-      .catch((e: string) => console.error(e));
+      .catch((e: string) => Toast.fail('登录失败，系统错误！' + e));
     if (res) {
       commit('loginSuccess', res);
     }
@@ -21,8 +20,7 @@ const actions: ActionTree<any, any> = {
     const res: Ajax.AjaxResponse = await sync(data)
       // tslint:disable-next-line:no-shadowed-variable
       .then((res) => res.data)
-      // tslint:disable-next-line:no-console
-      .catch((e: string) => console.error(e));
+      .catch((e: string) => Toast.fail('数据同步失败，系统错误！' + e));
     if (res) {
       commit('sync', 1);
     }
@@ -30,14 +28,23 @@ const actions: ActionTree<any, any> = {
 
   // 获取token
   async getToken({ state, commit }, data) {
-    // const res: Ajax.AjaxResponse = await getToken(data)
-    // // tslint:disable-next-line:no-shadowed-variable
-    // .then((res) => res.data)
-    // // tslint:disable-next-line:no-console
-    // .catch((e: string) => console.error(e));
-    const res: any = await getToken(data);
+    const res: Ajax.AjaxResponse = await getToken(data)
+    // tslint:disable-next-line:no-shadowed-variable
+    .then((res) => res.data)
+    .catch((e: string) => Toast.fail('Token获取失败，系统错误！' + e));
+    // const res: any = await getToken(data);
     if (res) {
+      // 设置token
       commit('setToken', res);
+      // 登录
+      const resq: Ajax.AjaxResponse = await login(data)
+      // tslint:disable-next-line:no-shadowed-variable
+      .then((resq) => resq.data)
+      .catch((e: string) =>  Toast.fail('登录失败，系统错误！' + e));
+      // 设置用户信息和用户权限
+      if (resq) {
+        commit('loginSuccess', resq);
+      }
     }
   },
 };

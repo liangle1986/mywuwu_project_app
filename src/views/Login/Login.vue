@@ -24,7 +24,6 @@
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import { NavBar, Field, CellGroup, Button, Toast, Loading, Icon } from 'vant';
 import { Mutation, State, Action } from 'vuex-class';
-
 import { UserState, ToKenInfo } from '@/store/state';
 
 @Component({
@@ -63,19 +62,13 @@ export default class Login extends Vue {
   }
 
   private handleLogin() {
+    Toast('sdadfasdadsdfas');
     const { username, password } = this;
     if (!username || !password) {
       Toast('请输入完整的用户名和密码');
     } else {
-
       // 先获取token 然后根据返回的token 获取用户信息和权限
       this.getToken({username, password});
-      if (this.toKen!= null || this.toKen!= undefined) {
-        alert(this.toKen.code);
-      }
-
-      // this.login({ username, password });
-      this.loginLoading();
     }
   }
   private onClickLeft() {
@@ -85,7 +78,6 @@ export default class Login extends Vue {
 </script>
 
 <style lang="scss" scoped>
-// @import '../../style/mixin';
 .van-nav-bar {
   height: 3.5rem;
   display: flex;

@@ -33,9 +33,9 @@ export const getToken = (data: any) => {
     data,
     url: 'admin/user_info',
   };
-  // return _get(req);
-  return {
-    code: 'A-0001'
-  , my_token: 'ASDFASDFDADSFDASFDASDFASDFASD-ASDFASDFASDFASDF-ASDVASDVASVDAS',
-  };
+  return _get(req);
+  // return {
+  //   code: 'A-0001'
+  // , token: 'ASDFASDFDADSFDASFDASDFASDFASD-ASDFASDFASDFASDF-ASDVASDVASVDAS',
+  // };
 };
