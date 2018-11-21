@@ -1,6 +1,9 @@
 import { State, RepeatingDateState, ClockLog } from '@/store/state';
+import Cookies from 'js-cookie';
 
 const userInfo = 'xiaomuzhu';
+
+const toKen = 'my_token';
 
 export function getInfo() {
   return localStorage.getItem(userInfo);
@@ -13,6 +16,23 @@ export function setInfo(username: string) {
 export function removeInfo() {
   return localStorage.removeItem(userInfo);
 }
+
+// 获取token 值
+export function getToken() {
+  return Cookies.get(toKen);
+}
+
+// 设置token 值
+export function setToken(token: string) {
+  return Cookies.set(toKen, token);
+}
+
+// 删除token 值
+export function removeToken() {
+  Cookies.remove(toKen);
+}
+
+
 
 function getDateList(arr: RepeatingDateState[]) {
   const list: string[] = [];

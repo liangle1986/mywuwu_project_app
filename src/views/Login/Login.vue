@@ -3,7 +3,7 @@
         <!-- 导航 -->
         <section>
             <van-nav-bar @click-left="onClickLeft">
-                <van-icon name="arrow-left" slot="left" />
+                <van-icon name="back" slot="left" />
                 <h3 v-if="title" slot="title">{{title}}</h3>
             </van-nav-bar>
         </section>
@@ -11,7 +11,7 @@
         <main>
             <section>
                 <van-cell-group>
-                    <van-field v-model="username" label="用户名" icon="clear" placeholder="请输入用户名" required @click-icon="username = ''" />
+                    <van-field v-model="username" label="用户名" icon="close" placeholder="请输入用户名" required @click-icon="username = ''" />
                     <van-field v-model="password" type="password" label="密码" placeholder="请输入密码" required />
                 </van-cell-group>
             </section>
@@ -20,7 +20,6 @@
         </main>
     </div>
 </template>
-r
 <script lang="ts">
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import { NavBar, Field, CellGroup, Button, Toast, Loading, Icon } from 'vant';
@@ -77,7 +76,7 @@ export default class Login extends Vue {
 </script>
 
 <style lang="scss" scoped>
-@import '../../style/mixin';
+// @import '../../style/mixin';
 .van-nav-bar {
   height: 3.5rem;
   display: flex;
