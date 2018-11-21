@@ -73,9 +73,13 @@ export default {
     state.user!.isSync = isSync;
   },
 
-  // 获取首页图片
-  gethomeImg(state: State, homeImg: ImgInfo[]) {
+ // 获取首页图片
+ gethomeImg(state: State, homeImg: ImgInfo[]) {
     state!.imgageList = homeImg;
+  },
+  // 获取图片详情
+  getImageInfo(state: State, image: ImgInfo) {
+    state!.imgInfo = image;
   },
 
   // 设置token 缓存

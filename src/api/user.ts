@@ -4,9 +4,9 @@ import { _get, _post, _delete } from './http';
 export const login = (data: any) => {
   const req = {
     data,
-    url: 'admin/user_login',
+    url: 'users/test',
   };
-  return _post(req);
+  return _get(req);
 };
 
 // 获取用户信息
@@ -24,14 +24,14 @@ export const changeAvatar = (data: any) => {
     data,
     url: 'admin/change_avatar',
   };
-  return _post(req);
+  return _get(req);
 };
 
 // 获取token信息
 export const getToken = (data: any) => {
   const req = {
     data,
-    url: 'admin/user_info',
+    url: 'login',
   };
   return _get(req);
   // return {

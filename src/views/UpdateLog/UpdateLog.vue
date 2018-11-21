@@ -44,7 +44,7 @@ export default class UpdateLog extends Vue {
 </script>
 
 <style lang="scss" scoped>
-// @import '../../style/mixin';
+@import '../../style/mixin';
 .van-nav-bar {
   height: 3.5rem;
   display: flex;

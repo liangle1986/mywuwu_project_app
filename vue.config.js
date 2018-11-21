@@ -1,7 +1,7 @@
 const path = require('path')
 const fs = require('fs')
 const PrerenderSPAPlugin = require('prerender-spa-plugin')
-
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 function resolve (dir) {
     return path.join(__dirname, dir)
   }
@@ -62,7 +62,16 @@ module.exports = {
         port: 8080,
         https: false,
         hotOnly: false,
-        proxy: null, // 设置代理
+        proxy: {
+            '/api': {
+                target: 'http://localhost:8089',
+                changeOrigin: true,
+                ws: true,
+                pathRewrite: {
+                  '^/api': ''
+                }
+            },
+        }, // 设置代理
         before: app => {}
         },
         // 第三方插件配置
@@ -99,6 +108,16 @@ module.exports = {
                         // , '/habit', '/setting'
                 ],
                 }),
+                new UglifyJsPlugin({
+                    uglifyOptions: {
+                      compress: {
+                        warnings: false,
+                        drop_console: false,//console
+                        drop_debugger: false,
+                        pure_funcs: ['console.log']//移除console
+                      }
+                    }
+                })
             ],
         }
     },

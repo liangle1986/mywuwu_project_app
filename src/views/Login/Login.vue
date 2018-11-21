@@ -62,7 +62,6 @@ export default class Login extends Vue {
   }
 
   private handleLogin() {
-    Toast('sdadfasdadsdfas');
     const { username, password } = this;
     if (!username || !password) {
       Toast('请输入完整的用户名和密码');

@@ -23,15 +23,15 @@ export default class Footer extends Vue {
 </script>
 
 <style lang="scss" scoped>
-@import '../style/mixin';
+// @import '../style/mixin';
 
 footer {
   width: 100%;
   height: 3.5rem;
   min-height: 8%;
   background-color: $grey;
-  align-items: center;
   display: flex;
+  align-items: center;
   justify-content: space-around;
   div {
     display: flex;
@@ -40,7 +40,7 @@ footer {
     align-items: center;
     font-size: 60%;
     svg {
-      margin-bottom: 1.4rem;
+      margin-bottom: 0.4rem;
     }
   }
 }

@@ -1,15 +1,12 @@
 // @import '../../../style/mixin';
 p {
     font-size: 50%;
-    margin: 0.1rem 0 0 0;
+    margin: .1rem 0 0 0;
     color: grey;
 }
 
 .headerIcon {
     margin: 0 1rem 0;
-    svg {
-        @include iconSize(1.8rem);
-    }
 }
 
 .active {
@@ -23,27 +20,4 @@ p {
 a {
     text-decoration: none;
     box-sizing: border-box
-}
-
-.icon {
-    position: relative;
-    z-index: 0;
-    display: inline-block;
-    border-radius: 2.4rem;
-    list-style: none;
-    text-align: center;
-    font-weight: normal;
-    width: 2.6rem;
-    height: 2.8rem;
-    cursor: pointer;
-}
-
-.small {
-    font-size: 2.18rem;
-}
-.normal {
-    font-size: 2.7rem;
-}
-.large {
-    font-size: 2.78rem;
 }

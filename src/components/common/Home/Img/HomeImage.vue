@@ -2,7 +2,7 @@
     <!-- 首页展示图片 -->
     <van-swipe :autoplay="3000" class="home-img" @change="onChange">
         <van-swipe-item class="van-img" v-for="(image, index) in imageList" :key="index">
-            <img  v-lazy="image.url" :alt="image.name" />
+            <img  v-on:click="onClick(index)" v-lazy="image.url" :alt="image.name" />
         </van-swipe-item>
          <!-- <div class="custom-indicator" slot="indicator">
           {{ current + 1 }}/{{countSize}}
@@ -12,7 +12,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
-import { Swipe, SwipeItem, Lazyload } from 'vant';
+import { Swipe, SwipeItem, Lazyload, ImagePreview } from 'vant';
 import { Mutation, State } from 'vuex-class';
 import state, { ImgInfo } from '@/store/state';
 Vue.use(Lazyload, {
@@ -37,6 +37,21 @@ export default class HomeImage extends Vue {
     }
   private onChange(index: number) {
     this.current = index;
+    }
+
+    private onClick(index: number) {
+      const ImgList: any = [];
+      // 循环获取URL链接
+      this.imageList.forEach((element: ImgInfo) => {
+        ImgList.push(element.url);
+      });
+      ImagePreview({
+        images: ImgList,
+        startPosition: index,
+        onClose() {
+          // do something
+        },
+      });
     }
 }
 </script>

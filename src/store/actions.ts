@@ -25,19 +25,37 @@ const actions: ActionTree<any, any> = {
       commit('sync', 1);
     }
   },
+    // 获取图片信息
+    async getImageInfo({ state, commit }, data) {
+      const res: Ajax.AjaxResponse = await sync(data)
+      // tslint:disable-next-line:no-shadowed-variable
+      .then((res) => res.data)
+      // tslint:disable-next-line:no-console
+      .catch((e: string) => console.error(e));
+      if (res) {
+        commit('getImageInfo', 1);
+      }
+    },
 
   // 获取token
   async getToken({ state, commit }, data) {
     const res: Ajax.AjaxResponse = await getToken(data)
     // tslint:disable-next-line:no-shadowed-variable
     .then((res) => res.data)
-    .catch((e: string) => Toast.fail('Token获取失败，系统错误！' + e));
+    .catch((e: string) => Toast('Token获取失败，系统错误！' + e));
     // const res: any = await getToken(data);
-    if (res) {
+    alert(JSON.stringify(res))
+    if (res && '{}' != JSON.stringify(res)) {
       // 设置token
       commit('setToken', res);
-      // 登录
-      const resq: Ajax.AjaxResponse = await login(data)
+      const user = {
+        username: data.username,
+        password: data.password,
+        id: 1,
+        createdate: '2018-11-12 21:26:25',
+      }
+ 
+      const resq: Ajax.AjaxResponse = await login(user)
       // tslint:disable-next-line:no-shadowed-variable
       .then((resq) => resq.data)
       .catch((e: string) =>  Toast.fail('登录失败，系统错误！' + e));
@@ -45,6 +63,8 @@ const actions: ActionTree<any, any> = {
       if (resq) {
         commit('loginSuccess', resq);
       }
+    } else{
+      Toast('用户名或密码错误，请重新登录！')
     }
   },
 };

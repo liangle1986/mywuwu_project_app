@@ -66,6 +66,7 @@ export interface ImgInfo {
   size: number;
   name: string;
   showOrder: number;
+  desc: string;
 }
 
 // 设置token信息
@@ -163,20 +164,20 @@ const state: State = {
   imgageList: [
     {id: 0, name: '', size: 0,
     url: 'https://is4-ssl.mzstatic.com/image/thumb/Purple71/v4/be/13/06/be1306d8-e343-2adb-2b04-9a6884300499' +
-    '/pr_source.jpg/1200x630bb.jpg', createdate: '2018-01-01', showOrder: 0},
+    '/pr_source.jpg/1200x630bb.jpg', createdate: '2018-01-01', showOrder: 0, desc: '备注'},
     {id: 1, name: '', size: 0,
     url: 'https://is4-ssl.mzstatic.com/image/thumb/Purple71/v4/be/13/06/be1306d8-e343-2adb-2b04-9a6884300499' +
-    '/pr_source.jpg/1200x630bb.jpg', createdate: '2018-01-01', showOrder:  1},
+    '/pr_source.jpg/1200x630bb.jpg', createdate: '2018-01-01', showOrder:  1, desc: '备注'},
     {id: 2, name: '', size: 0,
     url: 'https://is4-ssl.mzstatic.com/image/thumb/Purple71/v4/be/13/06/be1306d8-e343-2adb-2b04-9a6884300499' +
-    '/pr_source.jpg/1200x630bb.jpg', createdate: '2018-01-01', showOrder: 2},
+    '/pr_source.jpg/1200x630bb.jpg', createdate: '2018-01-01', showOrder: 2, desc: '备注'},
     {id: 3, name: '', size: 0,
     url: 'https://is4-ssl.mzstatic.com/image/thumb/Purple71/v4/be/13/06/be1306d8-e343-2adb-2b04-9a6884300499' +
-    '/pr_source.jpg/1200x630bb.jpg', createdate: '2018-01-01', showOrder: 3},
+    '/pr_source.jpg/1200x630bb.jpg', createdate: '2018-01-01', showOrder: 3, desc: '备注'},
   ],
   imgInfo: {id: 0, name: '', size: 0,
   url: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=4216091012,4283409120&fm=27&gp=0.jpg',
-   createdate: '2018-01-01', showOrder: 0},
+   createdate: '2018-01-01', showOrder: 0, desc: '备注'},
    toKen: {
      code: '',
      token: getToken(),

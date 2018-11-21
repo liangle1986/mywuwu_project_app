@@ -2,7 +2,7 @@
     <section>
         <router-link v-if="!!path" :to="path">
             <span @click="changeActivePage">
-                <van-icon :name="!isActived ? name.defaultName : name.activedName" style="width: 1.2rem; height:1.2rem;"/>
+                <van-icon :name="!isActived ? name.defaultName : name.activedName" style="width: 2rem; height:2rem;"/>
                 <p :class="{active: isActived}">{{tagName}}</p>
             </span>
         </router-link>

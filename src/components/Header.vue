@@ -3,13 +3,12 @@
         <aside class="left" v-if="!!headerInfo.left" @click="leftHandle" >
           <vIcon :name="headerInfo.left"></vIcon>
         </aside>
-        <div v-else class="left"></div>
-        <h3>{{headerInfo.title}}</h3>
+        <div class="left" v-else></div>
+        <h3 class="center">{{headerInfo.title}}</h3>
         <aside class="right" v-if="!!headerInfo.right" @click="rightHandle">
-          <vIcon :name="headerInfo.right"></vIcon>
-
+        <vIcon :name="headerInfo.right"></vIcon>
         </aside>
-        <div v-else  class="right"></div>
+        <div class="right" v-else></div>
         <Popup :show="show" @hide="hide" :title="habitLibrary" ></Popup>
     </header>
 </template>
@@ -92,32 +91,24 @@ export default class Header extends Vue {
 
 <style lang="scss" scoped>
 header {
-  // display: -ms-grid;
-  // -ms-grid-columns: 3rem auto 3rem;
-  // align-items: center;
-  // grid-row-end: end;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  align-items: center;
   width: 100%;
-  height: 3.5rem;
-  min-height: 8%;
+  justify-content: space-around;
   background-color: #fff;
   .left {
-    flex: flex-start;
-    width: 3rem !important;
-    line-height: 3.5rem;
+    width: 3.5rem;
+    align-items: center;
   }
-  h3{
-    flex: 1;
-    text-align: center;
+  .center {
+      flex: 1;
   }
   .right {
-    flex: flex-end;
-    width: 3rem !important;
-    line-height: 3.5rem;
+    width: 3.5rem;
+    align-items: center;
+  }
 }
-}
+
 
 .van-popup {
   width: 100%;

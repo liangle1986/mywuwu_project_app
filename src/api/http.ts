@@ -34,7 +34,7 @@ axios.interceptors.request.use((config) => { // 每次请求时会从cookie中�
   const token = getToken();
   if (token) {
       // 把token加入到默认请求参数中
-      config.headers.common.my_token = token;
+      config.headers.common.Authorization = 'Bearer ' + token;
   }
   return config;
 },  (error) => {
@@ -44,7 +44,6 @@ axios.interceptors.request.use((config) => { // 每次请求时会从cookie中�
 /* 响应拦截器 */
 
 axios.interceptors.response.use((response) => { // ①10010 token过期（30天） ②10011 token无效
-
     if (response.data.code === 10010 || response.data.code === 10011) {
       // 删除已经失效或过期的token（不删除也可以，因为登录后覆盖）
       removeToken();
@@ -52,7 +51,6 @@ axios.interceptors.response.use((response) => { // ①10010 token过期（30天�
       router.replace({
           path: '/login',
       });
-
     } else if (response.data.token) { // 判断token是否存在，如果存在说明需要更新token
       // 覆盖原来的token(默认一天刷新一次)
       setToken(response.data.token);
