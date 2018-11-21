@@ -30,7 +30,7 @@ const axios = Axios.default.create({
 
 /* 请求拦截器 */
 // tslint:disable-next-line:no-shadowed-variable
-axios.interceptors.request.use((config) => { // 每次请求时会从localStorage中获取token
+axios.interceptors.request.use((config) => { // 每次请求时会从cookie中获取token
   const token = getToken();
   if (token) {
       // 把token加入到默认请求参数中

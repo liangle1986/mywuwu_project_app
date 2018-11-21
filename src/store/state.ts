@@ -1,4 +1,5 @@
 // import * as moment from 'moment';
+import {getToken } from '@/utils';
 export interface ClockLog {
   id: number;
   time?: string | undefined;
@@ -67,7 +68,11 @@ export interface ImgInfo {
   showOrder: number;
 }
 
-
+// 设置token信息
+export interface ToKenInfo {
+  code: string | undefined;
+  token: string | undefined;
+}
 
 
 export interface State {
@@ -84,7 +89,13 @@ export interface State {
   user?: UserState;
   imgInfo: ImgInfo;
   imgageList: ImgInfo[];
+  toKen: ToKenInfo | undefined;
 }
+
+
+
+
+
 
 // 初始状态
 const state: State = {
@@ -166,6 +177,10 @@ const state: State = {
   imgInfo: {id: 0, name: '', size: 0,
   url: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=4216091012,4283409120&fm=27&gp=0.jpg',
    createdate: '2018-01-01', showOrder: 0},
+   toKen: {
+     code: '',
+     token: getToken(),
+   },
 };
 
 export default state;

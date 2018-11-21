@@ -26,3 +26,16 @@ export const changeAvatar = (data: any) => {
   };
   return _post(req);
 };
+
+// 获取token信息
+export const getToken = (data: any) => {
+  const req = {
+    data,
+    url: 'admin/user_info',
+  };
+  // return _get(req);
+  return {
+    code: 'A-0001'
+  , my_token: 'ASDFASDFDADSFDASFDASDFASDFASD-ASDFASDFASDFASDF-ASDVASDVASVDAS',
+  };
+};

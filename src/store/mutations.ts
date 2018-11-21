@@ -1,4 +1,4 @@
-import { State, ImgInfo } from './state';
+import { State, ImgInfo, ToKenInfo } from './state';
 import _ from '@/utils';
 
 export default {
@@ -76,5 +76,10 @@ export default {
   // 获取首页图片
   gethomeImg(state: State, homeImg: ImgInfo[]) {
     state!.imgageList = homeImg;
+  },
+
+  // 设置token 缓存
+  setToken(state: State, data: any) {
+    state!.toKen = data;
   },
 };
