@@ -13,20 +13,18 @@
         </section>
         <section class="followText">
            <van-list v-model="loading" :finished="finished" @load="onLoad"  :loading-text="text">
-              <section  v-for="index in list" :key="index" class="followDiv">
+              <section  v-for="(index, item) in list" :key="item" class="followDiv">
                 <section class="title">
                   <aside class="left">评论信息</aside>
-                  <aside class="right">时间</aside>
+                  <aside class="right">2018-11-12 12:22:33</aside>
                   <aside class="left"><van-icon v-for="index in 5" v-bind:key="index" name="xingxing_xuanzhong" /> </aside>
-                  <aside class="right">评论人</aside>
+                  <aside class="right">评论人sadfdasfasdf</aside>
                 </section>
                 <section class="center">
-                  <!-- <div> -->asd
                       asdffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffsdaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa222
                       ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
                       fffffffffffffffffffffffffffffffffffffffffffffffff
 
-                  <!-- </div> -->
                       <!-- <van-field v-model="message" type="textarea" rows="5" placeholder="写出你想说的话..." /> -->
                       <!-- <van-button @click="save(message)" class="button" size="small">保存</van-button> -->
                 </section>
@@ -129,7 +127,7 @@ export default class Follow extends Vue {
         border-radius: 1.5rem;
         align-items: center;
         margin: .2rem;
-         background-color: rgba(209, 199, 199, 0.924);
+         background-color: #e5e5e5;
         .title {
             display: flex;
             align-items: center;
@@ -137,29 +135,30 @@ export default class Follow extends Vue {
             justify-content: space-around;
             // background-color: #fff;
             flex-flow: wrap;
-            @include font(.35rem, 1.2rem);
+            @include font(1.2rem, 1.2rem);
             margin: .5rem;
              .left {
                 padding-left: .1rem; 
                 text-align: left;
-                width: calc(100vw - 45vw);
+                width: calc(100vw - 65vw);
               }
               .right {
                 // margin-right: .2rem; 
                 padding-right: .5rem; 
                 text-align: right;
-                width: calc(100vw - 65vw);
+                width: calc(100vw - 45vw);
               }
-            .van-icon {
-               color: $follow;
-            }
+              .van-icon {
+                color: $follow;
+              }
         }
         .center {
           border-radius: 1.5rem;
-          width: calc(100vw - .5rem);
+          padding: 1rem;
+          width: calc(100vw - 2.5rem);
           height: 8rem;
           word-wrap:break-word;
-          overflow: auto;
+          overflow: scroll;
         }
       }
     }

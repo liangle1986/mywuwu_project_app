@@ -11,20 +11,31 @@
         <main>
             <section>
                 <van-cell-group>
-                    <van-field v-model="username" label="用户名" icon="close" placeholder="请输入用户名" required @click-icon="username = ''" />
+                    <van-field v-model="username" label="用户名" icon="close" placeholder="邮箱/手机号" 
+                    required @click-icon="username = ''"  :error-message="errorMessage" />
                     <van-field v-model="password" type="password" label="密码" placeholder="请输入密码" required />
                 </van-cell-group>
             </section>
             <van-button @click="handleLogin" size="small" type="primary">登录</van-button>
             <van-loading  v-if="user.isLogin===0" type="spinner" color="black" />
         </main>
+        <section class="partyLogin">
+          <div class="zhifubao" >
+            <van-icon name="zhifubao1" v-on:click="showLogin(1)"/>
+            <p>支付宝登录</p>
+          </div>
+          <div  class="weixin">
+            <van-icon name="weixindenglu2" v-on:click="showLogin(2)"/>
+            <p>微信登录</p>
+          </div>
+        </section>
     </div>
 </template>
 <script lang="ts">
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import { NavBar, Field, CellGroup, Button, Toast, Loading, Icon } from 'vant';
 import { Mutation, State, Action } from 'vuex-class';
-import { UserState, ToKenInfo } from '@/store/state';
+import { UserState } from '@/store/state';
 
 @Component({
   components: {
@@ -37,20 +48,21 @@ import { UserState, ToKenInfo } from '@/store/state';
   },
 })
 export default class Login extends Vue {
-  @Action public login!: (data: { username: string; password: string }) => void;
-  @Action public getToken!: (data: { username: string; password: string }) => ToKenInfo;
+  // @Action public login!: (data: { username: string; password: string }) => void;
+  @Action public getToken!: (data: { username: string; password: string }) => void;
   @Mutation private loginLoading!: () => void;
   @State private user!: UserState;
-  @State private toKen!: ToKenInfo;
   private message?: string;
   private title!: string;
   private username!: string;
   private password!: string;
+  private errorMessage!: string;
   public data() {
     return {
       username: '',
       title: this.$route.name,
       password: '',
+      errorMessage: '',
     };
   }
 
@@ -66,12 +78,43 @@ export default class Login extends Vue {
     if (!username || !password) {
       Toast('请输入完整的用户名和密码');
     } else {
-      // 先获取token 然后根据返回的token 获取用户信息和权限
-      this.getToken({username, password});
+      if(this.checkMobile(username) || this.checkEmail(username)) {
+          // 先获取token 然后根据返回的token 获取用户信息和权限
+          this.getToken({username, password});
+          this.loginLoading();
+      };
     }
   }
   private onClickLeft() {
     this.$router.go(-1);
+  }
+
+// 验证手机号
+private checkMobile(str: string) {
+    const re = /^1\d{10}$/
+    if (re.test(str)) {
+      this.errorMessage = "";
+      return true;
+    } else {
+      this.errorMessage = "手机号码格式不正确！";
+      return false;
+    }
+  }
+
+// 验证email
+private checkEmail(str: string) {
+    const re = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/
+    if(re.test(str)){
+      this.errorMessage = "";
+      return true;
+    }else{
+      this.errorMessage = "手机号码格式不正确！";
+      return false;
+    }
+  }
+
+  private showLogin(type: number) {
+    Toast('asdfafasdf' + type);
   }
 }
 </script>
@@ -96,5 +139,27 @@ main {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.partyLogin {
+  height: calc(50vh - 6rem);
+  display: flex;
+  // flex-direction: row-reverse;
+  justify-content:space-around;
+  align-items: center;
+  .van-icon {
+    // height: 5rem !important;
+    // width: 5rem;
+    font-size: 3rem;
+  }
+  .zhifubao {
+    color: rgb(60, 171, 235);
+  }
+  .weixin {
+    color: rgb(72, 199, 61);
+  }
+}
+p {
+  font-size: .87rem;
 }
 </style>

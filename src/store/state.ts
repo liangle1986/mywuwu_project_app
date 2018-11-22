@@ -41,6 +41,8 @@ export interface Card {
   src: string;
   content?: string;
 }
+
+// 二级菜单
 export interface PageInfo {
   id: number;
   isActived: boolean;
@@ -52,6 +54,7 @@ export interface PageInfo {
   tagName: string;
 }
 
+// 头部菜单
 export interface HeaderInfo {
   left?: string;
   title: string;

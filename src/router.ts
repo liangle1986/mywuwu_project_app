@@ -22,6 +22,8 @@ const Login = (r: any) => import('@/views/Login/Login.vue'); // 登录
 
 const Error = (r: any) => import('@/views/404/error.vue'); // 错误
 
+const Follow = (r: any) => import('@/views/Follow/Follow.vue'); // 评论
+
 Vue.use(Router);
 
 export default new Router({
@@ -66,6 +68,11 @@ export default new Router({
       path: '/login',
       name: '登录',
       component: Login,
+    },
+    {
+      path: '/Follow',
+      name: '评论',
+      component: Follow,
     },
     // {
     //   path: '/card',

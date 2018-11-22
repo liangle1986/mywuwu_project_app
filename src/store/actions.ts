@@ -9,7 +9,7 @@ const actions: ActionTree<any, any> = {
     const res: Ajax.AjaxResponse = await login(data)
       // tslint:disable-next-line:no-shadowed-variable
       .then((res) => res.data)
-      .catch((e: string) => Toast.fail('登录失败，系统错误！' + e));
+      .catch((e: string) => Toast('登录失败，系统错误！' + e));
     if (res) {
       commit('loginSuccess', res);
     }
@@ -42,10 +42,8 @@ const actions: ActionTree<any, any> = {
     const res: Ajax.AjaxResponse = await getToken(data)
     // tslint:disable-next-line:no-shadowed-variable
     .then((res) => res.data)
-    .catch((e: string) => Toast('Token获取失败，系统错误！' + e));
-    // const res: any = await getToken(data);
-    alert(JSON.stringify(res))
-    if (res && '{}' != JSON.stringify(res)) {
+    .catch((e: string) => Toast('Token获取失败,系统错误！' + e));
+    if (res && '{}' !== JSON.stringify(res)) {
       // 设置token
       commit('setToken', res);
       const user = {
@@ -53,18 +51,17 @@ const actions: ActionTree<any, any> = {
         password: data.password,
         id: 1,
         createdate: '2018-11-12 21:26:25',
-      }
- 
+      };
       const resq: Ajax.AjaxResponse = await login(user)
       // tslint:disable-next-line:no-shadowed-variable
       .then((resq) => resq.data)
-      .catch((e: string) =>  Toast.fail('登录失败，系统错误！' + e));
+      .catch((e: string) =>  Toast('登录失败，系统错误！' + e));
       // 设置用户信息和用户权限
       if (resq) {
         commit('loginSuccess', resq);
       }
-    } else{
-      Toast('用户名或密码错误，请重新登录！')
+    } else {
+      Toast('用户名或密码错误，请重新登录！');
     }
   },
 };
