@@ -78,11 +78,11 @@ export default class Login extends Vue {
     if (!username || !password) {
       Toast('请输入完整的用户名和密码');
     } else {
-      if(this.checkMobile(username) || this.checkEmail(username)) {
+      if (this.checkMobile(username) || this.checkEmail(username)) {
           // 先获取token 然后根据返回的token 获取用户信息和权限
           this.getToken({username, password});
           this.loginLoading();
-      };
+      }
     }
   }
   private onClickLeft() {
@@ -91,24 +91,24 @@ export default class Login extends Vue {
 
 // 验证手机号
 private checkMobile(str: string) {
-    const re = /^1\d{10}$/
+    const re = /^1\d{10}$/;
     if (re.test(str)) {
-      this.errorMessage = "";
+      this.errorMessage = '';
       return true;
     } else {
-      this.errorMessage = "手机号码格式不正确！";
+      this.errorMessage = '手机号码格式不正确！';
       return false;
     }
   }
 
 // 验证email
 private checkEmail(str: string) {
-    const re = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/
-    if(re.test(str)){
-      this.errorMessage = "";
+    const re = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
+    if (re.test(str)) {
+      this.errorMessage = '';
       return true;
-    }else{
-      this.errorMessage = "手机号码格式不正确！";
+    } else {
+      this.errorMessage = '手机号码格式不正确！';
       return false;
     }
   }
