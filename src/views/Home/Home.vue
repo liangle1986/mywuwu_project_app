@@ -89,6 +89,6 @@ export default class Today extends Vue {
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
-  overflow: auto;
+  overflow: scroll;
 }
 </style>

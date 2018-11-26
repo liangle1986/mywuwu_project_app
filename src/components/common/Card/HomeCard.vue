@@ -42,4 +42,8 @@ export default class HomeCard extends Vue {
 </script>
 
 <style lang="scss" scoped>
+.van-card {
+    margin-left: -1.85rem; 
+    width: calc(100vw - 1.4rem);
+}
 </style>
