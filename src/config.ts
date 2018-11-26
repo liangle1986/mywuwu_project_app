@@ -178,7 +178,7 @@ export default {
   url: {
     basicUrl:
       process.env.NODE_ENV === 'development'
-        ? 'http://localhost:8089'
+        ? 'http://localhost:8088'
         : 'http://www.mywuwu.com/api/',
   },
 };

@@ -1,6 +1,6 @@
 import { ActionTree } from 'vuex';
 import {Toast } from 'vant';
-import { login, getToken } from '@/api/user';
+import { login, getToken, threeLogin } from '@/api/user';
 import { sync } from '@/api/sync';
 
 const actions: ActionTree<any, any> = {
@@ -64,6 +64,14 @@ const actions: ActionTree<any, any> = {
       Toast('用户名或密码错误，请重新登录！');
     }
   },
+
+    // 第三方等登录
+    async threeLogin({ state, commit }, data) {
+      const res: Ajax.AjaxResponse = await threeLogin(data)
+      // tslint:disable-next-line:no-shadowed-variable
+      .then((res) => res.data)
+      .catch((e: string) => Toast('获取连接,系统错误！' + e));
+    },
 };
 
 export default actions;

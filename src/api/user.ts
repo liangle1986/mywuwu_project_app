@@ -39,3 +39,12 @@ export const getToken = (data: any) => {
   // , token: 'ASDFASDFDADSFDASFDASDFASDFASD-ASDFASDFASDFASDF-ASDVASDVASVDAS',
   // };
 };
+
+// 获取三方登录信息
+export const threeLogin = (data: any) => {
+  const req = {
+    data,
+    url: 'alipay/alipayToken',
+  };
+  return _get(req);
+};

@@ -20,12 +20,12 @@
             <van-loading  v-if="user.isLogin===0" type="spinner" color="black" />
         </main>
         <section class="partyLogin">
-          <div class="zhifubao" >
-            <van-icon name="zhifubao1" v-on:click="showLogin(1)"/>
+          <div class="zhifubao" v-on:click="showLogin(1)">
+            <van-icon name="zhifubao1" />
             <p>支付宝登录</p>
           </div>
-          <div  class="weixin">
-            <van-icon name="weixindenglu2" v-on:click="showLogin(2)"/>
+          <div  class="weixin"  v-on:click="showLogin(2)">
+            <van-icon name="weixindenglu2"/>
             <p>微信登录</p>
           </div>
         </section>
@@ -36,6 +36,7 @@ import { Component, Vue, Watch } from 'vue-property-decorator';
 import { NavBar, Field, CellGroup, Button, Toast, Loading, Icon } from 'vant';
 import { Mutation, State, Action } from 'vuex-class';
 import { UserState } from '@/store/state';
+import { threeLogin } from '@/api/user';
 
 @Component({
   components: {
@@ -50,12 +51,14 @@ import { UserState } from '@/store/state';
 export default class Login extends Vue {
   // @Action public login!: (data: { username: string; password: string }) => void;
   @Action public getToken!: (data: { username: string; password: string }) => void;
+  // @Action public threeLogin!: (data: {type: number }) => string;
   @Mutation private loginLoading!: () => void;
   @State private user!: UserState;
   private message?: string;
   private title!: string;
   private username!: string;
   private password!: string;
+  // private type!: number;
   private errorMessage!: string;
   public data() {
     return {
@@ -63,6 +66,7 @@ export default class Login extends Vue {
       title: this.$route.name,
       password: '',
       errorMessage: '',
+      // type: 1,
     };
   }
 
@@ -113,8 +117,12 @@ private checkEmail(str: string) {
     }
   }
 
-  private showLogin(type: number) {
+ private async showLogin(type: number) {
     Toast('asdfafasdf' + type);
+    const data = await threeLogin({type})
+    .then((res) => res.data)
+    .catch((e: string) => Toast('登录失败，系统错误！' + e));
+    alert(data.data);
   }
 }
 </script>
