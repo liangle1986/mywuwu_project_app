@@ -24,6 +24,9 @@ const Error = (r: any) => import('@/views/404/error.vue'); // 错误
 
 const Follow = (r: any) => import('@/views/Follow/Follow.vue'); // 评论
 
+const Redirect = (r: any) => import('@/components/common/LoginRedirect/Redirect.vue'); // 登录回调
+
+
 Vue.use(Router);
 
 export default new Router({
@@ -73,6 +76,11 @@ export default new Router({
       path: '/Follow',
       name: '评论',
       component: Follow,
+    },
+    {
+      path: '/redirect',
+      name: '评论',
+      component: Redirect,
     },
     // {
     //   path: '/card',

@@ -76,7 +76,14 @@ export default class Login extends Vue {
       this.$router.go(-1);
     }
   }
-
+  // 初始化执行
+  private created (){
+      //逻辑代码
+       const obj = this.$route.query;
+       alert(obj.A);
+  }
+  
+  
   private handleLogin() {
     const { username, password } = this;
     if (!username || !password) {
@@ -122,7 +129,8 @@ private checkEmail(str: string) {
     const data = await threeLogin({type})
     .then((res) => res.data)
     .catch((e: string) => Toast('登录失败，系统错误！' + e));
-    alert(data.data);
+    const rest = location.href = data.data;
+    alert(rest);
   }
 }
 </script>
