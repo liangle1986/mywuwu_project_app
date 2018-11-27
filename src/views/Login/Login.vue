@@ -80,7 +80,7 @@ export default class Login extends Vue {
   private created (){
       //逻辑代码
        const obj = this.$route.query;
-       alert(obj.A);
+       alert(obj.auth_code);
   }
   
   
