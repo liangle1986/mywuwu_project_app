@@ -16,7 +16,8 @@
                     <van-field v-model="password" type="password" label="密码" placeholder="请输入密码" required />
                 </van-cell-group>
             </section>
-            <van-button @click="handleLogin" size="small" type="primary">登录</van-button>
+            <van-button @click="handleLogin" size="small" type="primary">登录</van-button> 
+            <!-- <van-button @click="handleLogin" size="small" type="primary">注册</van-button> -->
             <van-loading  v-if="user.isLogin===0" type="spinner" color="black" />
         </main>
         <section class="partyLogin">
@@ -36,7 +37,7 @@ import { Component, Vue, Watch } from 'vue-property-decorator';
 import { NavBar, Field, CellGroup, Button, Toast, Loading, Icon } from 'vant';
 import { Mutation, State, Action } from 'vuex-class';
 import { UserState } from '@/store/state';
-import { threeLogin } from '@/api/user';
+import { aliThreeLogin } from '@/api/user';
 
 @Component({
   components: {
@@ -76,14 +77,7 @@ export default class Login extends Vue {
       this.$router.go(-1);
     }
   }
-  // 初始化执行
-  private created (){
-      //逻辑代码
-       const obj = this.$route.query;
-       alert(obj.auth_code);
-  }
-  
-  
+
   private handleLogin() {
     const { username, password } = this;
     if (!username || !password) {
@@ -124,13 +118,17 @@ private checkEmail(str: string) {
     }
   }
 
+// 获取支付宝授权链接
  private async showLogin(type: number) {
     Toast('asdfafasdf' + type);
-    const data = await threeLogin({type})
+    const data = await aliThreeLogin()
     .then((res) => res.data)
     .catch((e: string) => Toast('登录失败，系统错误！' + e));
-    const rest = location.href = data.data;
-    alert(rest);
+    try {
+       window.location.href = data.data;
+    } catch (error) {
+      Toast('请检查移动端是否已下载支付宝。');
+    }
   }
 }
 </script>

@@ -8,11 +8,14 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
-import { setToken } from '@/utils';
+import { Action } from 'vuex-class';
+import {CloseWebPage,  IsPC} from '@/utils';
 @Component({})
 export default class Card extends Vue {
- private saying!: string;
- private time!: number;
+  @Action public threeLogin!: (data: {authcode: string}) => void;
+  private saying!: string;
+  private time!: number;
+  private authcode!: string;
   private data() {
     return {
       date: '授权成功！',
@@ -29,9 +32,17 @@ export default class Card extends Vue {
       if (this.time <= 0) {
         // 逻辑代码
         const obj = this.$route.query;
-        // 设置token信息
+         // 设置token信息
         if (obj !== null && obj !== undefined) {
-          // 获取
+          // 获取登录信息
+          const {authcode} = this;
+          this.threeLogin({authcode});
+
+          if (IsPC()) {
+            this.$router.push({path: '/'});
+          } else {
+            CloseWebPage();
+          }
         }
         // this.$router.push({path: '/login', query: obj});
       } else {
@@ -41,6 +52,7 @@ export default class Card extends Vue {
           }, 1000);
       }
     }
+
 }
 </script>
 

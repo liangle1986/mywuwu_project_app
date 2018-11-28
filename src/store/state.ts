@@ -6,6 +6,7 @@ export interface ClockLog {
   isFinished: boolean;
   message?: string;
 }
+// 用户信息 logintype 0:本地登录， 2：支付宝授权登录 3：微信授权登录
 export interface UserState {
   username: string | undefined;
   id: number | null;
@@ -13,6 +14,7 @@ export interface UserState {
   url: string;
   isLogin: number;
   isSync: number;
+  loginType: number;
 }
 
 export interface SettingState {
@@ -163,6 +165,7 @@ const state: State = {
     isSync: -1,
     url: 'https://is4-ssl.mzstatic.com/image/thumb/Purple71/v4/be/13/06/be1306d8-e343-2adb-2b04-9a6884300499' +
       '/pr_source.jpg/1200x630bb.jpg',
+    loginType: 0,
   },
   imgageList: [
     {id: 0, name: '', size: 0,

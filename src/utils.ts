@@ -69,6 +69,40 @@ function transformDate(date: string | number) {
   }
 }
 
+
+// 验证是手机还是浏览器
+export function IsPC() {
+  const userAgentInfo = navigator.userAgent;
+  const Agents = ['Android', 'iPhone', 'SymbianOS', 'Windows Phone', 'iPad', 'iPod'];
+  let flag = true;
+  Agents.forEach((item) => {
+    if (userAgentInfo.indexOf(item) > 0) {
+      flag = false;
+      return;
+    }
+  });
+  return flag;
+}
+
+// 关闭浏览器
+export function CloseWebPage() {
+    // 判断是否为ie
+    if (navigator.userAgent.indexOf('MSIE') > 0) {
+        // 判断是否为ie6
+        if (navigator.userAgent.indexOf('MSIE 6.0') > 0) {
+            window.opener = null; window.close();
+        } else {
+            window.open('', '_top'); window.top.close();
+        }
+    } else if (navigator.userAgent.indexOf('Firefox') > 0) { // 判断是否为firefox
+        window.location.href = 'about:blank ';
+    } else {  // 其他非firefox等主流浏览器如chrome,safari
+        window.opener = null;
+        window.open('', '_self', '');
+        window.close();
+    }
+}
+
 const utils = {
   getDateList,
   transformDate,

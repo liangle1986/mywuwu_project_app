@@ -1,6 +1,6 @@
 import { ActionTree } from 'vuex';
 import {Toast } from 'vant';
-import { login, getToken, threeLogin } from '@/api/user';
+import { login, getToken, aliUserLogin } from '@/api/user';
 import { sync } from '@/api/sync';
 
 const actions: ActionTree<any, any> = {
@@ -37,7 +37,7 @@ const actions: ActionTree<any, any> = {
       }
     },
 
-  // 获取token
+  // 获取本地token 换取用户信息
   async getToken({ state, commit }, data) {
     const res: Ajax.AjaxResponse = await getToken(data)
     // tslint:disable-next-line:no-shadowed-variable
@@ -51,6 +51,7 @@ const actions: ActionTree<any, any> = {
         password: data.password,
         id: 1,
         createdate: '2018-11-12 21:26:25',
+        loginType: 1,
       };
       const resq: Ajax.AjaxResponse = await login(user)
       // tslint:disable-next-line:no-shadowed-variable
@@ -67,10 +68,13 @@ const actions: ActionTree<any, any> = {
 
     // 第三方等登录
     async threeLogin({ state, commit }, data) {
-      const res: Ajax.AjaxResponse = await threeLogin(data)
+      const res: Ajax.AjaxResponse = await aliUserLogin(data)
       // tslint:disable-next-line:no-shadowed-variable
       .then((res) => res.data)
       .catch((e: string) => Toast('获取连接,系统错误！' + e));
+      if (res) {
+        commit('loginSuccess', res);
+      }
     },
 };
 

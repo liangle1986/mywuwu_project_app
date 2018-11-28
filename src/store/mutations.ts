@@ -55,6 +55,7 @@ export default {
     state.user!.username = data.username;
     state.user!.url = data.url;
     state.user!.isLogin = 1;
+    state.user!.loginType = data.loginType;
   },
   // 退出登录
   logoutSuccess(state: State) {

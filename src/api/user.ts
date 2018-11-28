@@ -40,11 +40,19 @@ export const getToken = (data: any) => {
   // };
 };
 
-// 获取三方登录信息
-export const threeLogin = (data: any) => {
+// 支付宝获取三方登录信息链接
+export const aliThreeLogin = () => {
+  const req = {
+    url: 'alipay/aliGetToken',
+  };
+  return _get(req);
+};
+
+// 支付宝获取三方登录用户信息
+export const aliUserLogin = (data: any) => {
   const req = {
     data,
-    url: 'alipay/alipayToken',
+    url: 'alipay/alipayTokenUserInfo',
   };
   return _get(req);
 };
