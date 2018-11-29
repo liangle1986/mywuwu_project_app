@@ -1,5 +1,6 @@
 import { State, RepeatingDateState, ClockLog } from '@/store/state';
 import Cookies from 'js-cookie';
+// import {AlipayJSBridge} from 'https://gw.alipayobjects.com/as/g/h5-lib/alipayjsapi/3.1.1/alipayjsapi.min.js';
 
 const userInfo = 'xiaomuzhu';
 
@@ -86,16 +87,22 @@ export function IsPC() {
 
 // 关闭浏览器
 export function CloseWebPage() {
+    const regex = /micromessenger/i;
     // 判断是否为ie
-    if (navigator.userAgent.indexOf('MSIE') > 0) {
+    const ua = navigator.userAgent.toLowerCase();
+    if (ua.indexOf('msie') > 0) {
         // 判断是否为ie6
-        if (navigator.userAgent.indexOf('MSIE 6.0') > 0) {
+        if (ua.indexOf('msie 6.0') > 0) {
             window.opener = null; window.close();
         } else {
             window.open('', '_top'); window.top.close();
         }
-    } else if (navigator.userAgent.indexOf('Firefox') > 0) { // 判断是否为firefox
+    } else if (ua.indexOf('firefox') > 0) { // 判断是否为firefox
         window.location.href = 'about:blank ';
+    } else if (regex.test(ua) === true) {
+      // WeixinJSBridge.call('closeWindow');
+    } else if (ua.indexOf('alipay') !== -1) {
+      // AlipayJSBridge.call('closeWebview');
     } else {  // 其他非firefox等主流浏览器如chrome,safari
         window.opener = null;
         window.open('', '_self', '');

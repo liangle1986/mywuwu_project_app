@@ -2,7 +2,6 @@
     <figure>
         <img src="https://picsum.photos/200/300/?random" />
         <figcaption>{{saying}}</figcaption>
-          {{time}}
     </figure>
 </template>
 
@@ -12,13 +11,13 @@ import { Action } from 'vuex-class';
 import {CloseWebPage,  IsPC} from '@/utils';
 @Component({})
 export default class Card extends Vue {
-  @Action public threeLogin!: (data: {authcode: string}) => void;
+  @Action public threeLoginToken!: (data: {authCode: string}) => void;
   private saying!: string;
   private time!: number;
-  private authcode!: string;
+  private authCode!: string;
   private data() {
     return {
-      date: '授权成功！',
+      saying: '授权成功！',
       time: 5,
     };
   }
@@ -34,14 +33,17 @@ export default class Card extends Vue {
         const obj = this.$route.query;
          // 设置token信息
         if (obj !== null && obj !== undefined) {
+          this.authCode = obj.auth_code;
+          alert(this.authCode);
           // 获取登录信息
-          const {authcode} = this;
-          this.threeLogin({authcode});
+          const {authCode} = this;
+          this.threeLoginToken({authCode});
 
           if (IsPC()) {
             this.$router.push({path: '/'});
           } else {
-            CloseWebPage();
+            this.saying = '授权成功了，请关闭页面并返回.';
+            // CloseWebPage();
           }
         }
         // this.$router.push({path: '/login', query: obj});
@@ -65,7 +67,7 @@ figure {
   @include font(0.8rem);
   img {
     width: 100%;
-    height: 12rem;
+    height: calc(100vw - 3rem);
   }
   figcaption {
     height: 8rem;

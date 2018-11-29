@@ -36,8 +36,9 @@
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import { NavBar, Field, CellGroup, Button, Toast, Loading, Icon } from 'vant';
 import { Mutation, State, Action } from 'vuex-class';
-import { UserState } from '@/store/state';
+import { UserState, ToKenInfo } from '@/store/state';
 import { aliThreeLogin } from '@/api/user';
+import {getToken as newToken }from '@/utils';
 
 @Component({
   components: {
@@ -50,16 +51,17 @@ import { aliThreeLogin } from '@/api/user';
   },
 })
 export default class Login extends Vue {
-  // @Action public login!: (data: { username: string; password: string }) => void;
+  @Action public login!: (data: { username: string; password: string }) => void;
   @Action public getToken!: (data: { username: string; password: string }) => void;
   // @Action public threeLogin!: (data: {type: number }) => string;
   @Mutation private loginLoading!: () => void;
   @State private user!: UserState;
+  @State private token!: ToKenInfo;
   private message?: string;
   private title!: string;
   private username!: string;
   private password!: string;
-  // private type!: number;
+  private type!: number;
   private errorMessage!: string;
   public data() {
     return {
@@ -67,8 +69,18 @@ export default class Login extends Vue {
       title: this.$route.name,
       password: '',
       errorMessage: '',
-      // type: 1,
+      type: 0,
     };
+  }
+
+    // 初始化执行
+  private created() {
+    setTimeout((res: any) => {
+      const showToken = newToken();
+       if (showToken !== undefined) {
+        
+       }
+    }, 1000);
   }
 
   @Watch('user', { immediate: true, deep: true })
@@ -76,6 +88,24 @@ export default class Login extends Vue {
     if (val.isLogin === 1) {
       this.$router.go(-1);
     }
+  }
+
+
+  // 获取用户信息
+  @Watch('token', { immediate: true, deep: true })
+  private onTokenChanged(val: ToKenInfo, oldVal: ToKenInfo) {
+    if (val !== undefined && oldVal !== undefined) {
+      alert(val + '============' + oldVal);
+      if (this.type === 1) {
+            // 根据支付宝的token获取对应支付宝用户信息
+          } else if (this.type === 2) {
+            // 微信
+          } else {
+              // 本地tonken获取信息
+              const { username, password } = this;
+              this.login({username, password});
+          }
+      }
   }
 
   private handleLogin() {
@@ -120,8 +150,8 @@ private checkEmail(str: string) {
 
 // 获取支付宝授权链接
  private async showLogin(type: number) {
-    Toast('asdfafasdf' + type);
-    const data = await aliThreeLogin()
+    this.type = type;
+    const data = await aliThreeLogin({type})
     .then((res) => res.data)
     .catch((e: string) => Toast('登录失败，系统错误！' + e));
     try {

@@ -43,14 +43,14 @@ export default {
   },
   // 登陆成功后执行
   loginSuccess(state: State, data: any) {
-    const currentState = JSON.parse(data.content);
+    // const currentState = JSON.parse(data.content);
 
-    state.activePage = currentState.activePage;
-    state.headerInfo = currentState.headerInfo;
-    state.card = currentState.card;
+    // state.activePage = currentState.activePage;
+    // state.headerInfo = currentState.headerInfo;
+    // state.card = currentState.card;
     // state.today = currentState.today;
-    state.setting = currentState.setting;
-
+    // state.setting = currentState.setting;
+    alert(data.id);
     state.user!.id = data.id;
     state.user!.username = data.username;
     state.user!.url = data.url;
