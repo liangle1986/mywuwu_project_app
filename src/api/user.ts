@@ -43,7 +43,6 @@ export const getToken = (data: any) => {
 // 支付宝获取三方登录信息链接
 export const aliThreeLogin = (data: any) => {
   const req = {
-    data,
     url: 'alipay/aliGetToken',
   };
   return _get(req);

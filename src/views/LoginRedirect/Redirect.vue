@@ -9,51 +9,51 @@
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import { Action } from 'vuex-class';
 import {CloseWebPage,  IsPC} from '@/utils';
-@Component({})
-export default class Card extends Vue {
+import { Toast } from 'vant';
+@Component({
+})
+export default class Redirect extends Vue {
   @Action public threeLoginToken!: (data: {authCode: string}) => void;
   private saying!: string;
   private time!: number;
   private authCode!: string;
   private data() {
     return {
-      saying: '授权成功！',
+      saying: '授权中，请稍等！',
       time: 5,
     };
   }
   // 初始化执行
   private created() {
-    this.setTime();
+    this.getToken();
   }
-  // 点击站点名
-  private setTime() {
-      const that = this;
-      if (this.time <= 0) {
-        // 逻辑代码
-        const obj = this.$route.query;
-         // 设置token信息
-        if (obj !== null && obj !== undefined) {
-          this.authCode = obj.auth_code;
-          alert(this.authCode);
-          // 获取登录信息
-          const {authCode} = this;
-          this.threeLoginToken({authCode});
 
-          if (IsPC()) {
-            this.$router.push({path: '/'});
-          } else {
-            this.saying = '授权成功了，请关闭页面并返回.';
-            // CloseWebPage();
-          }
-        }
-        // this.$router.push({path: '/login', query: obj});
+// 获取调用的token
+  private async getToken() {
+    Toast.loading({
+      duration: 0,       // 持续展示 toast
+      forbidClick: true, // 禁用背景点击
+      loadingType: 'spinner',
+      message: this.saying,
+    });
+    // 逻辑代码
+    const obj = this.$route.query;
+      // 设置token信息
+    if (obj !== null && obj !== undefined) {
+      this.authCode = obj.auth_code;
+      alert(this.authCode);
+      // 获取登录信息
+      const {authCode} = this;
+      await this.threeLoginToken({authCode});
+      this.saying = '授权成功了，请关闭页面并返回.';
+      if (IsPC()) {
+        this.$router.push({path: '/'});
       } else {
-          setTimeout((res: any) => {
-            that.time --;
-            that.setTime();
-          }, 1000);
+        // CloseWebPage();
+        Toast.clear();
       }
     }
+  }
 
 }
 </script>

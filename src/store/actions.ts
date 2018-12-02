@@ -69,7 +69,8 @@ const actions: ActionTree<any, any> = {
       .then((res) => res.data)
       .catch((e: string) => Toast('获取连接,系统错误！' + e));
       if (res) {
-        commit('loginSuccess', res);
+        // 设置token
+        commit('setToken', res);
       }
     },
 };

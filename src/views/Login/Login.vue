@@ -38,7 +38,7 @@ import { NavBar, Field, CellGroup, Button, Toast, Loading, Icon } from 'vant';
 import { Mutation, State, Action } from 'vuex-class';
 import { UserState, ToKenInfo } from '@/store/state';
 import { aliThreeLogin } from '@/api/user';
-import {getToken as newToken }from '@/utils';
+import {getToken as newToken } from '@/utils';
 
 @Component({
   components: {
@@ -53,10 +53,11 @@ import {getToken as newToken }from '@/utils';
 export default class Login extends Vue {
   @Action public login!: (data: { username: string; password: string }) => void;
   @Action public getToken!: (data: { username: string; password: string }) => void;
-  // @Action public threeLogin!: (data: {type: number }) => string;
+  @Action public threeLogin!: (data: {logToken: string }) => void;
   @Mutation private loginLoading!: () => void;
   @State private user!: UserState;
   @State private token!: ToKenInfo;
+  private logToken!: string;
   private message?: string;
   private title!: string;
   private username!: string;
@@ -75,13 +76,20 @@ export default class Login extends Vue {
 
     // 初始化执行
   private created() {
-    setTimeout((res: any) => {
+    this.lasToken();
+  }
+
+  private lasToken() {
+   setTimeout((res: any) => {
       const showToken = newToken();
-       if (showToken !== undefined) {
-        
-       }
+      if (showToken !== undefined && this.token.token !== showToken) {
+        this.token.token = showToken;
+        alert(5555);
+        this.lasToken();
+      }
     }, 1000);
   }
+
 
   @Watch('user', { immediate: true, deep: true })
   private onUserChanged(val: UserState, oldVal: UserState) {
@@ -98,6 +106,9 @@ export default class Login extends Vue {
       alert(val + '============' + oldVal);
       if (this.type === 1) {
             // 根据支付宝的token获取对应支付宝用户信息
+            this.logToken = val.token ? val.token : '';
+            const {logToken} = this;
+            this.threeLogin({logToken});
           } else if (this.type === 2) {
             // 微信
           } else {
@@ -150,15 +161,14 @@ private checkEmail(str: string) {
 
 // 获取支付宝授权链接
  private async showLogin(type: number) {
-    this.type = type;
-    const data = await aliThreeLogin({type})
-    .then((res) => res.data)
-    .catch((e: string) => Toast('登录失败，系统错误！' + e));
-    try {
-       window.location.href = data.data;
-    } catch (error) {
-      Toast('请检查移动端是否已下载支付宝。');
-    }
+      this.type = type;
+      const data = await aliThreeLogin({type})
+      .then((res) => res.data)
+      .catch((e: string) => Toast('登录失败，系统错误！' + e));
+      if (data) {
+        window.location.href = data.data;
+        alert(data.data + 'AAAAAAAAAAAAAAA');
+      }
   }
 }
 </script>

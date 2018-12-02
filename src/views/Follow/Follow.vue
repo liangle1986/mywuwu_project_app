@@ -5,6 +5,7 @@
           <van-nav-bar @click-left="onClickLeft">
               <van-icon name="back" slot="left" />
               <h3 v-if="title" slot="title">{{title}}</h3>
+              <van-icon name="pinglun5" v-on:click="onFeedback"  slot="right" />
           </van-nav-bar>
       </section>
       <section class="followCenter">
@@ -17,7 +18,11 @@
                 <section class="title">
                   <aside class="left">评论信息</aside>
                   <aside class="right">2018-11-12 12:22:33</aside>
-                  <aside class="left"><van-icon v-for="index in 5" v-bind:key="index" name="xingxing_xuanzhong" /> </aside>
+                  <aside class="left">
+                    <!-- <van-icon v-for="index in 5" v-bind:key="index" name="xingxing_xuanzhong" />  -->
+                     <van-rate v-model="rateValue" count="5" readonly />
+                    
+                    </aside>
                   <aside class="right">评论人sadfdasfasdf</aside>
                 </section>
                 <section class="center">
@@ -32,14 +37,19 @@
            </van-list>
           </section>
       </section>
+      <van-dialog :v-model="show" before-close="beforeClose">
+        sadfasfasd
+        <!-- <Feedback :imgId="imgInfo.id"/> -->
+      </van-dialog>
   </section>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Watch } from 'vue-property-decorator';
-import { Lazyload, Icon, NavBar, List, CellGroup, Field } from 'vant';
+import { Lazyload, Icon, NavBar, List, CellGroup, Field, Rate, Dialog } from 'vant';
 import { Mutation, Action, State } from 'vuex-class';
 import {ImgInfo} from '@/store/state';
+import Feedback from '@/views/Feedback/Feedback.vue';
 
 Vue.use(Lazyload, {
   loading: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=4216091012,4283409120&fm=27&gp=0.jpg',
@@ -53,6 +63,8 @@ Vue.use(Lazyload, {
     [List.name]: List,
      [Field.name]: Field,
     [CellGroup.name]: CellGroup,
+    [Rate.name]: Rate,
+    Feedback,
   },
 })
 export default class Follow extends Vue {
@@ -64,12 +76,16 @@ export default class Follow extends Vue {
     private loading: boolean = false;
     private finished: boolean = false;
     private list: number[] = [];
+    private show!: boolean;
+    private rateValue!: number;
   private data() {
     return {
        title: this.$route.name,
        message: '想操你妹啊',
       //  imgInfos: this.imgInfo,
       text: '主人别着急，马上就好!',
+      rateValue: 5,
+      show: false,
     };
   }
 
@@ -93,6 +109,15 @@ export default class Follow extends Vue {
         this.finished = true;
       }
     }, 500);
+  }
+
+// 展示评论页
+  private onFeedback() {
+    alert(3333);
+    this.show = true;
+  }
+  private beforeClose() {
+    this.show = false;
   }
 }
 </script>
@@ -148,9 +173,9 @@ export default class Follow extends Vue {
                 text-align: right;
                 width: calc(100vw - 45vw);
               }
-              .van-icon {
-                color: $follow;
-              }
+              // .van-icon {
+              //   color: $follow;
+              // }
         }
         .center {
           border-radius: 1.5rem;
