@@ -23,7 +23,7 @@
         <section class="partyLogin">
           <div class="zhifubao" v-on:click="showLogin(1)">
             <van-icon name="zhifubao1" />
-            <p>支付宝登录</p>
+            <p>支付宝登录{{message}}</p>
           </div>
           <div  class="weixin"  v-on:click="showLogin(2)">
             <van-icon name="weixindenglu2"/>
@@ -36,7 +36,7 @@
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import { NavBar, Field, CellGroup, Button, Toast, Loading, Icon } from 'vant';
 import { Mutation, State, Action } from 'vuex-class';
-import { UserState, ToKenInfo } from '@/store/state';
+import { UserState, ToKenInfo, MessageInfo, State as sta } from '@/store/state';
 import { aliThreeLogin } from '@/api/user';
 import {getToken as newToken } from '@/utils';
 
@@ -55,8 +55,10 @@ export default class Login extends Vue {
   @Action public getToken!: (data: { username: string; password: string }) => void;
   @Action public threeLogin!: (data: {logToken: string }) => void;
   @Mutation private loginLoading!: () => void;
+  @Mutation private setMess!: (data: MessageInfo) => void;
   @State private user!: UserState;
   @State private token!: ToKenInfo;
+  @State private mess!: MessageInfo;
   private logToken!: string;
   private message?: string;
   private title!: string;
@@ -64,6 +66,7 @@ export default class Login extends Vue {
   private password!: string;
   private type!: number;
   private errorMessage!: string;
+  private websocket!: any;
   public data() {
     return {
       username: '',
@@ -71,14 +74,21 @@ export default class Login extends Vue {
       password: '',
       errorMessage: '',
       type: 0,
+      message: '',
     };
   }
 
     // 初始化执行
   private created() {
     this.lasToken();
+    this.setGroup();
   }
 
+ private setGroup() {
+  this.mess.code = 'G0007';
+  this.mess.message = '有新人进入G0007房间了哦！';
+  this.setMess(this.mess);
+ }
   private lasToken() {
    setTimeout((res: any) => {
       const showToken = newToken();

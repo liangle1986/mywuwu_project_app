@@ -9,7 +9,7 @@ export interface ClockLog {
 // 用户信息 logintype 0:本地登录， 2：支付宝授权登录 3：微信授权登录
 export interface UserState {
   username: string | undefined;
-  id: number | null;
+  id: string | undefined;
   createdTime: string | undefined;
   url: string;
   isLogin: number;
@@ -81,6 +81,14 @@ export interface ToKenInfo {
 }
 
 
+// 设置信息
+export interface MessageInfo {
+  code: string | undefined;
+  message: string | undefined;
+}
+
+
+
 export interface State {
   activePage: PageInfo[];
   headerInfo: HeaderInfo;
@@ -96,6 +104,7 @@ export interface State {
   imgInfo: ImgInfo;
   imgageList: ImgInfo[];
   toKen: ToKenInfo | undefined;
+  mess: MessageInfo;
 }
 
 
@@ -160,7 +169,7 @@ const state: State = {
   user: {
     isLogin: -1,
     username: '',
-    id: null,
+    id: '',
     createdTime: '',
     isSync: -1,
     url: 'https://is4-ssl.mzstatic.com/image/thumb/Purple71/v4/be/13/06/be1306d8-e343-2adb-2b04-9a6884300499' +
@@ -187,6 +196,10 @@ const state: State = {
    toKen: {
      code: '',
      token: getToken(),
+   },
+   mess: {
+     code: '',
+     message: '获取消息啦！',
    },
 };
 

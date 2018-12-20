@@ -20,6 +20,8 @@ const UpdateLog = (r: any) =>  import('@/views/UpdateLog/UpdateLog.vue'); // 更
 
 const Login = (r: any) => import('@/views/Login/Login.vue'); // 登录
 
+const WebSocket = (r: any) => import('@/views/Login/WebSocket.vue'); // 长链接
+
 const Error = (r: any) => import('@/views/404/error.vue'); // 错误
 
 const Follow = (r: any) => import('@/views/Follow/Follow.vue'); // 评论
@@ -81,6 +83,11 @@ export default new Router({
       path: '/redirect',
       name: '回调',
       component: Redirect,
+    },
+    {
+      path: '/websocket',
+      name: '长链接',
+      component: WebSocket,
     },
     // {
     //   path: '/card',
