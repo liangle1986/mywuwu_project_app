@@ -85,8 +85,8 @@ export default class Login extends Vue {
   }
 
  private setGroup() {
-  this.mess.code = 'G0007';
-  this.mess.message = '有新人进入G0007房间了哦！';
+  this.mess.code = 'G0008';
+  this.mess.message = '有新人进入G0008房间了哦！';
   this.setMess(this.mess);
  }
   private lasToken() {

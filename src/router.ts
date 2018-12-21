@@ -16,7 +16,7 @@ const NewHabit = (r: any) => import(/* webpackChunkName: "about" */ '@/views/New
 
 const Feedback = (r: any) => import('@/views/Feedback/Feedback.vue'); // 反馈
 
-const UpdateLog = (r: any) =>  import('@/views/UpdateLog/UpdateLog.vue'); // 更新日志
+const UpdateLog = (r: any) => import('@/views/UpdateLog/UpdateLog.vue'); // 更新日志
 
 const Login = (r: any) => import('@/views/Login/Login.vue'); // 登录
 
@@ -27,6 +27,11 @@ const Error = (r: any) => import('@/views/404/error.vue'); // 错误
 const Follow = (r: any) => import('@/views/Follow/Follow.vue'); // 评论
 
 const Redirect = (r: any) => import('@/views/LoginRedirect/Redirect.vue'); // 登录回调
+
+
+const test1 = (r: any) => import('@/views/D3Js/test1.vue'); // D3测试
+const test2 = (r: any) => import('@/views/D3Js/test2.vue'); // D3测试
+const DTXG3 = (r: any) => import('@/views/D3Js/DTXG3.vue'); // D3测试
 
 
 Vue.use(Router);
@@ -88,6 +93,20 @@ export default new Router({
       path: '/websocket',
       name: '长链接',
       component: WebSocket,
+    },
+    {
+      path: '/test1',
+      name: '测试1',
+      component: test1,
+    },
+    {
+      path: '/test2',
+      name: '测试2',
+      component: test2,
+    }, {
+      path: '/test3',
+      name: '测试3',
+      component: DTXG3,
     },
     // {
     //   path: '/card',

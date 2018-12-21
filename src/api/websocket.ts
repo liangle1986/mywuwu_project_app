@@ -27,7 +27,7 @@ const sendMessage = (evt: any) => {
 export const readSend = (data: any) => {
     const req = {
       data,
-      url: 'sendOneWebSocket',
+      url: 'sendGroupWebSocket',
     };
     return _get(req);
 };

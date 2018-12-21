@@ -80,7 +80,7 @@ export default class socket extends Vue {
 
   private async hellosocket() {
       const { username } = this;
-    await readSend({'userId': username});
+    await readSend({'groupId': username});
   }
   private onClickLeft() {
     this.$router.go(-1);
